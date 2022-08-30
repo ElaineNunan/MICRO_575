@@ -8,6 +8,10 @@ Elaine Nunan
 
 -   WHY?!?!
 
+-   This is quite frustrating!
+
+-   I think I managed to fix it?
+
 Quarto enables you to weave together content and executable code into a
 finished document. To learn more about Quarto see <https://quarto.org>.
 
@@ -28,4 +32,10 @@ You can add options to executable code like this
     [1] 4
 
 The `echo: false` option disables the printing of code (only output is
-displayed).
+displayed)
+
+``` r
+3+5
+```
+
+    [1] 8
