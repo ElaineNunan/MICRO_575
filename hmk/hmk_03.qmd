@@ -1,0 +1,95 @@
+---
+title: "Homework 3"
+author: "Elaine Nunan"
+format: gfm
+editor: visual
+---
+
+## Reading the CSV file
+
+```{r, message=FALSE}
+library(tidyverse)
+
+read_csv(file = "fake.csv")
+```
+
+The tidyverse message has been disabled, and the file "fake" is now in the environment.
+
+# Investigating the properties of data frames
+
+Using the glimpse and sequence function to look at the data frame from the fake.csv file.
+
+```{r}
+fake <- read_csv(file = "fake.csv")
+
+glimpse(fake)
+
+class(fake)
+class(fake$lengths)
+```
+
+Of the two functions I used (glimpse and class), glimpse seems to be the more useful function for looking at the entire data frame than class, as glimpse shows all the values in the data frame. The class function tells you that "fake" is a data frame, which isn't very helpful or you need to specify which column in the data frame what you want information about.
+
+# Manipulating data frames
+
+```{r}
+
+fake$something <- 2 * fake$lengths
+
+glimpse(fake)
+```
+
+I created a column called "something" in the "fake" data frame by multiplying the "lengths" column by 2.
+
+# Working on columns
+
+Performing the mean function on the lengths column of the fake.csv file
+
+```{r}
+mean(fake$lengths)
+```
+
+The mean of the lengths column is 5.5
+
+# Accessing elements of data frames
+
+-   [Challenge 3 from SC Data Structures lesson](https://swcarpentry.github.io/r-novice-gapminder/04-data-structures-part1/index.html#challenge-3): Show what each of the following returns, and explain what each line of code is doing:
+
+    ```{r}
+    cats <- data.frame( coat = c("calico", "black", "tabby", "calico"),
+                    weight = c(2.1, 5.0, 3.2, 4.4),
+                    likes.string = c(TRUE, FALSE, TRUE, TRUE))
+    cats[1]
+    ```
+
+    The above function is returning the 1st list that is in the data frame which is the colum of coat type.
+
+    ```{r}
+    cats[[1]]
+    ```
+
+    The above function is returning the data in the 1st column as a vector
+
+    ```{r}
+    cats$coat
+    ```
+
+    The above function also returns the data in the 1st column. With this function you need to know the name of the column.
+
+    ```{r}
+    cats[1,1]
+    ```
+
+    The above function returns the 1st value of the 1st column.
+
+    ```{r}
+    cats[ ,1]
+    ```
+
+    The above function all of the values of the 1st column.
+
+    ```{r}
+    cats[1, ]
+    ```
+
+The above function returned the 1st values of all the columns
