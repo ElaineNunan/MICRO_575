@@ -1,0 +1,23 @@
+---
+title: "hmk 4"
+author: "Elaine Nunan"
+format: gfm
+editor: visual
+---
+
+## Homework 4: Making a ggplot
+
+```{r, message=FALSE}
+library(tidyverse)
+cats <- read_csv("cats.csv")
+
+```
+
+Now the tidyverse is loaded, and the data frame is in the environment. It is called "cats".
+
+```{r}
+ggplot(cats) +
+  geom_violin(aes(x=Breed, y=Weight))
+```
+
+I put my data into a violin plot (mostly to see what I got). It looks like this would be an acceptable way to show the data, the breed of cat vs. the weight. It shows me an estimate of how many cats are at certain weights. If I had a larger data set than I currently have it would be much more useful.
