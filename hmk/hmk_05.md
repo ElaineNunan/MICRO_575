@@ -45,6 +45,8 @@ in the `arr_time` and `dep_time`.
 ``` r
 schedule_times <- filter(flights, arr_time >= 0, dep_time >= 0)
 
+na_filter <- filter(flights, !(is.na(arr_time) | is.na(dep_time)))
+
 times_plot <- filter(flights, origin == "LGA", day == 16, distance < 2000, air_time >= 0)
 
 ggplot(data = times_plot) +
@@ -55,12 +57,13 @@ ggplot(data = times_plot) +
 
 To make this data frame, I filtered the `flight` data frame according to
 `arr_time` and `dep_time` being greater than or equal to 0, which should
-catch all of the flights as long as they have a value inputted. As for
-being able to prevent the warning message about ggplot not being able to
-graph all the points due to missing values, I tried making a new data
-frame (I called it “times_plot”) that includes `air_time` in the filter.
-This way the filter will take out any rows that have NA in the
-`air_time` column.
+catch all of the flights as long as they have a value inputted. Another
+way to filter out the NAs is using `is.na()` function. I checked both
+ways to do this, and they produce the same data frame! As for being able
+to prevent the warning message about ggplot not being able to graph all
+the points due to missing values, I tried making a new data frame (I
+called it “times_plot”) that includes `air_time` in the filter. This way
+the filter will take out any rows that have NA in the `air_time` column.
 
 # Question 3: adding columns
 
@@ -76,8 +79,6 @@ ggplot(data = b) +
 ```
 
     `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-
-    Warning: Removed 9430 rows containing non-finite values (stat_bin).
 
 ![](hmk_05_files/figure-gfm/unnamed-chunk-3-1.png)
 

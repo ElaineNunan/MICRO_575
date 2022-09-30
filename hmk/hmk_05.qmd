@@ -34,19 +34,21 @@ Now we are tasked with making a data frame that has values for every row in the 
 ```{r}
 schedule_times <- filter(flights, arr_time >= 0, dep_time >= 0)
 
+na_filter <- filter(flights, !(is.na(arr_time) | is.na(dep_time)))
+
 times_plot <- filter(flights, origin == "LGA", day == 16, distance < 2000, air_time >= 0)
 
 ggplot(data = times_plot) +
   geom_point(aes(x=air_time, y=distance))
 ```
 
-To make this data frame, I filtered the `flight` data frame according to `arr_time` and `dep_time` being greater than or equal to 0, which should catch all of the flights as long as they have a value inputted. As for being able to prevent the warning message about ggplot not being able to graph all the points due to missing values, I tried making a new data frame (I called it "times_plot") that includes `air_time` in the filter. This way the filter will take out any rows that have NA in the `air_time` column.
+To make this data frame, I filtered the `flight` data frame according to `arr_time` and `dep_time` being greater than or equal to 0, which should catch all of the flights as long as they have a value inputted. Another way to filter out the NAs is using `is.na()` function. I checked both ways to do this, and they produce the same data frame! As for being able to prevent the warning message about ggplot not being able to graph all the points due to missing values, I tried making a new data frame (I called it "times_plot") that includes `air_time` in the filter. This way the filter will take out any rows that have NA in the `air_time` column.
 
 # Question 3: adding columns
 
 Now, we are tasked with creating a new with creating a data frame of average flight speeds using `air_time` and `distance` then creating a histogram or a density plot of the new `flight_speeds` data.
 
-```{r}
+```{r, warning=FALSE}
 b <- mutate(flights, speed = distance / air_time)
 
 ggplot(data = b) +
