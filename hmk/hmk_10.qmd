@@ -1,0 +1,72 @@
+---
+title: "Homework 10: Decisions and loops"
+author: "Elaine Nunan"
+format: gfm
+editor: visual
+---
+
+# Decisions
+
+Write a function that accepts the current time as a parameter and prints "Good morning", "Good afternoon", or "Good evening" depending on the time. It is fine for the time to be in numeric format (e.g., `2317` for 11:17 pm).
+
+```{r, message=FALSE}
+library(tidyverse)
+
+watch <- function(time) {
+if(time >= 000 & time <= 1100) {
+  print ("Good morning!")
+} else if( time >= 1101& time <= 1600) {
+  print("Good afternoon!")
+} else if( time >= 1601 & time <= 2359) {
+  print ("Good evening")
+} else {
+   print("You aren't using military time, you noob")
+}
+}
+
+time <- 2400
+watch(time)
+```
+
+I created a function called `watch` (as in the timepiece) to state the appropriate greeting based on inputted time (in military time). If a time that isn't in the correct format or outside the normal 24 hour limit then the code will print a (gentle) reminder to use military time.
+
+# Loops
+
+-   Write a `for` loops that calculates the mean of each column of mtcars
+
+```{r}
+  cars.means <- rep(NA, length(mtcars))
+for(i in seq_along(mtcars)) {
+  cars.means[i] <- mean(mtcars[ ,i])
+} 
+```
+
+I initialized the results vector `cars.means` so that it will have the appropriate number of columns. Then I created a `for` lop that for every ith element of `cars.means` to input the mean of every ith column of `mtcars`. This loop works because all the columns in the `mtcars` data set is numeric.
+
+-   Write a function (using a for loop) that calculates the mean of all numeric columns of *any* data frame. This function should be able to accept data frames with non-numeric columns.
+
+```{r}
+
+ifnum_mean <- function(df) {
+  calc.mean <- rep(NA, length(df))
+  for(i in seq_along(df)) {
+    if(is.numeric(df [ ,i])) {
+      calc.mean[i] <- mean(df [ ,i])
+    } else if (!is.numeric(df [ ,i])) {
+      calc.mean[i] <- NA 
+    } 
+  }
+  calc.mean
+}
+
+iris <- as.data.frame(iris)
+ifnum_mean(iris)
+```
+
+My function `ifnum_mean` assesses the columns of the data frame to see if the columns are numeric or non-numeric. If they are numeric then it calculates the mean then if it isn't it inputs NA.
+
+## Why not loops
+
+In R, we generally encourage people to use vectorized functions instead of `for` loops. According to [your textbook](https://r4ds.had.co.nz/iteration.html), what is better about vectorized functions?
+
+`For` loops aren't the easiest thing to read or use whereas vectorized functions are usually named for the process they do. `For` loops also require as extra step of initializing the results vector whereas vectorized functions have that built-in.
